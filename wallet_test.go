@@ -1,6 +1,9 @@
 package wallet
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestWallet(t *testing.T) {
 	t.Run("deposit", func (t *testing.T) {
@@ -26,6 +29,22 @@ func TestWallet(t *testing.T) {
 		assertError(t, err, ErrInsufficientFunds)
 		assertBalance(t, wallet, Bitcoin(20))
 	})
+}
+
+func ExampleWallet_Deposit() {
+	wallet := Wallet{}
+	wallet.Deposit(Bitcoin(10))
+	fmt.Println("Balance:", wallet.Balance)
+
+	// Output: Balance: 10 BTC
+}
+
+func ExampleWallet_Withdraw() {
+	wallet := Wallet{Bitcoin(20)}
+	wallet.Withdraw(Bitcoin(10))
+	fmt.Println("Balance:", wallet.Balance)
+
+	// Output: Balance: 10 BTC
 }
 
 func assertBalance(t testing.TB, wallet Wallet, want Bitcoin) {
