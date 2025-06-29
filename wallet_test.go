@@ -8,10 +8,13 @@ func TestDeposit(t *testing.T) {
 
 	wallet.Deposit(newBalance)
 
-	got := wallet.Balance
-	want := newBalance 
+	assertBalance(t, wallet, newBalance)
+}
 
-	if got != want {
-		t.Errorf("got %d, want %d", got, want)
+func assertBalance(t testing.TB, wallet Wallet, want Bitcoin) {
+	balance := wallet.Balance
+
+	if balance != want {
+		t.Errorf("got %s, want %s", balance, want)
 	}
 }
