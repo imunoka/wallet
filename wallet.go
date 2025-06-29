@@ -7,3 +7,12 @@ type Wallet struct {
 func (w *Wallet) Deposit(amount Bitcoin) {
 	w.Balance += amount 
 }
+
+func (w *Wallet) Withdraw(amount Bitcoin) error {
+	if amount > w.Balance {
+		return ErrInsufficientFunds 
+	}
+
+	w.Balance -= amount
+	return nil
+}
